@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 210 25% 98%;
+    --foreground: 215 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    --primary: 205 87% 29%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 205 87% 45%;
+
+    --secondary: 158 64% 52%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 20% 92%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 205 100% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --success: 158 64% 52%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 214 25% 88%;
+    --input: 214 25% 88%;
+    --ring: 205 87% 29%;
+
+    --radius: 0.75rem;
+
+    --gradient-hero: linear-gradient(135deg, hsl(205 87% 29%), hsl(158 64% 52%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 25% 98%));
+    
+    --shadow-elevation: 0 4px 6px -1px hsl(215 25% 15% / 0.1), 0 2px 4px -2px hsl(215 25% 15% / 0.1);
+    --shadow-glow: 0 0 30px hsl(205 87% 45% / 0.3);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* table-specific variables */
+    --table-header-bg: 210 25% 98%; /* HSL used via color() helper below */
+    --table-row-alt-bg: 210 23% 96%;
+    --table-border: 214 25% 88%;
+  }
+
+  .dark {
+    --background: 215 28% 12%;
+    --foreground: 210 25% 92%;
+
+    --card: 215 25% 16%;
+    --card-foreground: 210 25% 92%;
+
+    --popover: 215 25% 16%;
+    --popover-foreground: 210 25% 92%;
+
+    --primary: 205 87% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 205 87% 55%;
+
+    --secondary: 158 64% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 215 20% 20%;
+    --muted-foreground: 215 16% 65%;
+
+    --accent: 205 100% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --success: 158 64% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 215 20% 25%;
+    --input: 215 20% 25%;
+    --ring: 205 87% 45%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(205 87% 35%), hsl(158 64% 40%));
+    --gradient-card: linear-gradient(180deg, hsl(215 25% 18%), hsl(215 28% 14%));
+    
+    --shadow-elevation: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -2px hsl(0 0% 0% / 0.2);
+    --shadow-glow: 0 0 30px hsl(205 87% 55% / 0.4);
+
+    --table-header-bg: 215 25% 18%;
+    --table-row-alt-bg: 215 24% 15%;
+    --table-border: 215 20% 25%;
+  }
+}
+
+@layer base {
+  * {
+    /* Avoid forcing border on every single element — keep this minimal.
+       If you intentionally want global border prefixing, you can re-enable.
+       @apply border-border;  <- removed to avoid conflicts with table components */
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  /* ---------------------------------------------------------------------------
+     TABLE ALIGNMENT + STYLES
+     - Add .results-table to the wrapper around your <Table> (see Results.tsx)
+     - Optional: add .results-table-sticky to make header sticky
+     --------------------------------------------------------------------------- */
+
+  /* Base alignment and spacing for table cells */
+  .results-table th,
+  .results-table td {
+    vertical-align: middle;         /* center header & row content */
+    padding-top: 0.75rem;           /* equivalent to py-3 */
+    padding-bottom: 0.75rem;
+    line-height: 1.25;
+    border-bottom: 1px solid hsl(var(--table-border) / 1);
+  }
+
+  /* Tighten header appearance and prevent wrapping */
+  .results-table th {
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+    background-color: color-mix(in srgb, hsl(var(--table-header-bg)), transparent 10%);
+  }
+
+  /* Body text color and monospace for numeric cells */
+  .results-table td {
+    color: hsl(var(--card-foreground));
+  }
+
+  .results-table td.font-mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Helvetica Neue", monospace;
+  }
+
+  /* Alternate row background for readability */
+  .results-table tbody tr:nth-child(even) {
+    background-color: color-mix(in srgb, hsl(var(--table-row-alt-bg)), transparent 10%);
+  }
+
+  /* Hover highlight */
+  .results-table tbody tr:hover {
+    background-color: color-mix(in srgb, hsl(var(--primary)), transparent 92%);
+    transition: background-color var(--transition-smooth);
+  }
+
+  /* Make header sticky when requested */
+  .results-table-sticky .results-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    backdrop-filter: blur(6px);
+    background-color: color-mix(in srgb, hsl(var(--table-header-bg)), white 85%);
+    box-shadow: 0 1px 0 0 hsl(var(--table-border) / 0.6);
+  }
+
+  /* Make sure icons inside header align vertically */
+  .results-table th > * {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Responsive: shrink long text cells and allow horizontal scrolling */
+  .results-table {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* If your table wrapper renders as DIVs rather than table elements, also target those */
+  .results-table .table-head,
+  .results-table .table-cell {
+    vertical-align: middle;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
