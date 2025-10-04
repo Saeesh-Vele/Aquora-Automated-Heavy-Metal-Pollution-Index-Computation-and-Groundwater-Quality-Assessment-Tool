@@ -1,0 +1,2 @@
+# Aquora-Automated-Heavy-Metal-Pollution-Index-Computation-and-Groundwater-Quality-Assessment-Tool
+Aquora is an AI-assisted, automated application designed to simplify and standardize the computation of Heavy Metal Pollution Indices (HMPI) in groundwater. Traditional assessment methods rely on manual calculations that are time-consuming, inconsistent, and prone to human error due to complex formulas and varying data inputs.
